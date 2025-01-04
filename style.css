@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&family=Manrope:wght@200..800&family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    * {
+        font-family: "Roboto", serif; 
+        font-size: 20px;
+    }
+
+    header {
+        position: fixed;
+        top: 0px;
+        box-sizing: border-box;
+        height: calc(100vh - (100vh * 0.85));
+        width: 100vw;
+        background-color: white;
+        align-content: center;
+        padding-left: 22px;
+        box-shadow:0px 4px 6px 0px #0000000D  ;
+        
+    }
+
+    main {
+        margin-top: calc(100vh - (100vh * 0.85)); 
+        margin-bottom: calc(100vh - (100vh * 0.85));
+        height: 100%;
+        width: 100%;
+        background-color: #f3f3f3;
+        padding-top: 30px;
+    }
+    
+    .chat{
+        margin-bottom: calc(100vh - (100vh * 0.85));
+    }
+
+    .send {
+        font-size: 32px;
+    }
+    
+
+    
+    .bottom {
+        box-sizing:border-box ;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        height: calc(100vh - (100vh * 0.85));
+        width: 100vw;
+        background-color: white;
+        padding:5%;
+        box-shadow: 0px -4px 6px 0px #0000000D;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+    }
+
+    input {
+        border: none;
+        margin-top: 5px;
+        font-size: 24px;
+        color: #0000000D;
+        font-style: italic;
+        opacity: 1;
+        font-family: "Roboto", serif;
+
+    }
+    input::-webkit-input-placeholder {
+     color: black; 
+     opacity: 1; 
+}
+input.commentText:focus {
+    outline: none; /* Remove o contorno ao focar */
+    color: black;
+}
+    .commentStatus {
+        color: #505050;
+        font-size: 18px;
+        font-family: "Roboto", serif; 
+        font-weight: 300;
+    }
+    .comment {
+        box-sizing:border-box;
+        margin-top: 5px;
+        padding: 20px;
+        width: 100%;
+        background-color: white;
+        display: flex;
+        flex-wrap: wrap; 
+        word-wrap: break-word;
+        word-break: keep-all;/* Permite que os itens se ajustem em linhas */
+        flex-flow: nowrap;
+        
+        gap: 5px; 
+        
+        ;
+        
+
+    }
+    .commentData {
+        
+        color: #505050;
+        
+        margin-right: 10px;
+    }
+    .commentOwner {
+       
+        color: black;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+    .commentReceiver {
+        
+        margin-left: 5px;
+        margin-right: 5px ;
+        color: black;
+        font-weight: bold;
+        margin-right: 5px;
+
+    }
+    .red{
+        background-color: #FFDEDE;
+    }
+    .gray {
+        background-color: #DCDCDC;
+
+    }
+   
+        
+    
