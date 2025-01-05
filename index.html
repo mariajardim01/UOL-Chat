@@ -11,7 +11,8 @@
 </head>
 <body>
     <header>
-        <img src="img/logo 1.png">
+        <img class="icon" src="img/logo 1.png">
+        <ion-icon class=icon name="people" onclick="showSideBar();showParticipants()" ></ion-icon>
     </header>
     <main>
         <div class="chat">
@@ -33,11 +34,56 @@
     <div class="bottom">
         <div>
         <input class="commentText" type="text" placeholder="Escreva aqui..." >
-        <div class="commentStatus">Enviando para Todos (público)</div>
+        <div class="commentStatus">Enviando para {{to}} (público)</div>
         </div>
         <ion-icon class=send name="paper-plane-outline" onclick="sendComment()"></ion-icon>
         
     </div>
+
+    <aside>
+        <div class="contacts">
+            <div class="text">Escolha um contato para enviar mensagem:</div>
+            <div class="listContacts">
+                <div class="contact">
+                    <div style="display: flex;">
+                    <ion-icon name="people"></ion-icon>
+                    <div class="nameContact">Todos</div>
+                    </div>
+                    <ion-icon class="show contactCheck" name="checkmark-outline" style="color: #28BB25;"></ion-icon>
+                </div>
+                
+                <div class="contact">
+                    <div style="display: flex;">
+                        <ion-icon name="person-circle"></ion-icon>
+                        <div class="nameContact">Maria</div>
+                    </div>
+                    <ion-icon class="noShow contactCheck" name="checkmark-outline" style="color: #28BB25;"></ion-icon>
+                </div>
+
+            </div>
+            <div class="text">Escolha a visibilidade:</div>
+            <div class="listVisibility">
+                
+                <div class="contact">
+                    <div style="display: flex;">
+                        <ion-icon name="lock-open"></ion-icon>
+                        <div class="nameContact">Público</div>
+                    </div>
+                    <ion-icon name="checkmark-outline" style="color: #28BB25;"></ion-icon>
+                </div>
+                <div class="contact">
+                    <div style="display: flex;">
+                        <ion-icon name="lock-closed"></ion-icon>
+                        <div class="nameContact">Privado</div>
+                    </div>
+                    <ion-icon name="checkmark-outline" style="color: #28BB25;"></ion-icon>
+                </div>
+            </div>
+
+
+        </div>
+    </aside>
+    <div class="filter" onclick="retrieveSideBar()"></div>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

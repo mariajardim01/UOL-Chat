@@ -1,5 +1,6 @@
-const UUID = "f6c3a6f9-af9d-4197-b69b-9c3bdf2d15a4";
+const UUID = "a2d8f71c-5f27-41e5-8199-67da4c7fe348";
 let name = ""
+let to = "Todos"
 
 function showChatMessages(response){
     let chat = document.querySelector(".chat")
@@ -73,7 +74,7 @@ function joinChat(){
     
 
     const joinedChat = () => {
-        setInterval(showMessages,3000)
+        //setInterval(showMessages,3000)
         
         setInterval(() => {
             axios.post(`https://mock-api.driven.com.br/api/v6/uol/status/${UUID}`,  nameObject )
@@ -99,7 +100,7 @@ function sendComment () {
 
 newText = {
     from: name,
-    to: "Todos",
+    to: to,
     text: text,
     type: "message"
 };
@@ -114,5 +115,91 @@ promice.then((response) => {
 });
 
 }
+
+
+
+function showParticipants(){
+    let listParticipants = document.querySelector(".listContacts");
+    listParticipants.innerHTML =
+                 `<div class="contact" onclick="chooseTo(this)">
+                    <div style="display: flex;">
+                    <ion-icon name="people"></ion-icon>
+                    <div class="nameContact">Todos</div>
+                    </div>
+                    <ion-icon class="show contactCheck" name="checkmark-outline" style="color: #28BB25;"></ion-icon>
+                </div>`
+
+
+            function showParticipantsContact(response){
+                    console.log(response)
+                    if (response.data != null ){
+                        for (let i = 0; i < response.data.length - 1; i++){
+                            if (response.data[i].name != name){
+                
+                            listParticipants.innerHTML += `
+                            <div class="contact" onclick="chooseTo(this)">
+                                    <div style="display: flex;">
+                                        <ion-icon name="person-circle"></ion-icon>
+                                        <div class="nameContact">${response.data[i].name}</div>
+                                    </div>
+                                    <ion-icon class="noShow contactCheck" name="checkmark-outline" style="color: #28BB25;"></ion-icon>
+                            </div>`}
+                    }
+                }
+                }
+
+    const promice = axios.get(`https://mock-api.driven.com.br/api/v6/uol/participants/${UUID}`)
+    console.log("participantes")
+    promice.then(showParticipantsContact)
+
+    
+}
+
+function showSideBar(){
+    
+    const sideBar = document.querySelector("aside")
+    sideBar.classList.add("show")
+    const filter = document.querySelector(".filter")
+    filter.classList.add("show")
+    
+    
+}
+
+function retrieveSideBar() {
+    const sideBar = document.querySelector("aside")
+    sideBar.classList.remove("show")
+    const filter = document.querySelector(".filter")
+    filter.classList.remove("show")
+
+}
+
+function chooseTo(participant){
+    let contactName = participant.querySelector(".nameContact")
+    to = contactName.innerHTML
+
+    
+
+    let contacts = document.querySelectorAll(".contactCheck")
+    
+    for (let i = 0; i<contacts.length; i++){
+        let parent = contacts[i].parentNode
+        let nameContact = parent.querySelector(".nameContact")
+        nameContact = nameContact.innerHTML
+
+        if(nameContact == to){
+        contacts[i].classList.remove("noShow")
+        
+        }
+        else{
+        contacts[i].classList.add("noShow")
+        }
+    }
+    
+    
+
+}
+
+
+
 
 joinChat()
