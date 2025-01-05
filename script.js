@@ -1,6 +1,7 @@
-const UUID = "a2d8f71c-5f27-41e5-8199-67da4c7fe348";
+const UUID = "d6d401bb-c78b-4fa5-bebe-a852e4b5d31c";
 let name = ""
 let to = "Todos"
+let status = "Público"
 
 function showChatMessages(response){
     let chat = document.querySelector(".chat")
@@ -37,6 +38,7 @@ function showChatMessages(response){
                 </div>`
             }
             else if (response.data[i].type == "private_message"){
+                if (response.data[i].from == name || response.data[i].to == name){
         
                 let chat = document.querySelector(".chat")
                 chat.innerHTML += `
@@ -49,7 +51,7 @@ function showChatMessages(response){
                         <span class="commentBody">${response.data[i].text}</span>
                         </p>
                     </div>`
-                }
+                }}
     }
     
     
@@ -74,21 +76,27 @@ function joinChat(){
     
 
     const joinedChat = () => {
-        //setInterval(showMessages,3000)
+        setInterval(showMessages,3000)
         
         setInterval(() => {
             axios.post(`https://mock-api.driven.com.br/api/v6/uol/status/${UUID}`,  nameObject )
               .then(response => console.log("Status enviado com sucesso!"))
               .catch(error => console.error("Erro ao enviar status:", error));
-          }, 5000);
+          }, 4000);
 
           
 
         
     } 
 
+    function reloadPage(){
+        alert("Esse nome já foi usado ou não é valido, por favor insira outro nome");
+        window.location.reload()
+    }
+
     const promice = axios.post(`https://mock-api.driven.com.br/api/v6/uol/participants/${UUID}`,nameObject);
     promice.then(joinedChat)
+    promice.catch(reloadPage)
 
 
 
@@ -97,13 +105,24 @@ function joinChat(){
 function sendComment () {
     let textElement = document.querySelector(".commentText"); // Seleciona o elemento input
     let text = textElement.value; // Pega o valor digitado
+    if (status == "Público"){
+        console.log(status)
+        newText = {
+            from: name,
+            to: to,
+            text: text,
+            type: "message"
+        }
+;} else{
+    console.log(status)
+    newText = {
+        from: name,
+        to: to,
+        text: text,
+        type: "private_message"
+    }
 
-newText = {
-    from: name,
-    to: to,
-    text: text,
-    type: "message"
-};
+}
 
 
 let promice = axios.post(`https://mock-api.driven.com.br/api/v6/uol/messages/${UUID}`, newText);
@@ -111,7 +130,7 @@ promice.then((response) => {
     console.log(response);
     textElement.value = ""; 
 }).catch((error) => {
-    console.error(error);
+    window.location.reload();
 });
 
 }
@@ -133,7 +152,7 @@ function showParticipants(){
             function showParticipantsContact(response){
                     console.log(response)
                     if (response.data != null ){
-                        for (let i = 0; i < response.data.length - 1; i++){
+                        for (let i = 0; i < response.data.length; i++){
                             if (response.data[i].name != name){
                 
                             listParticipants.innerHTML += `
@@ -162,6 +181,13 @@ function showSideBar(){
     const filter = document.querySelector(".filter")
     filter.classList.add("show")
     
+
+
+    status = "Público"
+    to = "Todos"
+    
+    
+    
     
 }
 
@@ -173,13 +199,19 @@ function retrieveSideBar() {
 
 }
 
+function atualizarCommentStatus() {
+    let htmlStatus = document.querySelector(".commentStatus")
+    htmlStatus.innerHTML = `Enviando para ${to} (${status})`
+}
+
 function chooseTo(participant){
     let contactName = participant.querySelector(".nameContact")
     to = contactName.innerHTML
-
+    console.log(to)
     
-
+    atualizarCommentStatus()
     let contacts = document.querySelectorAll(".contactCheck")
+    
     
     for (let i = 0; i<contacts.length; i++){
         let parent = contacts[i].parentNode
@@ -199,7 +231,40 @@ function chooseTo(participant){
 
 }
 
+function chooseStatus(statusChosen){
+    let statusName = statusChosen.querySelector(".nameContact")
+    status = statusName.innerHTML
+    console.log(status)
 
+    atualizarCommentStatus()
+    let allStatus = document.querySelectorAll(".statusCheck")
+
+    
+    for (let i = 0; i<allStatus.length; i++){
+        let parent = allStatus[i].parentNode
+        let nameContact = parent.querySelector(".nameContact")
+        nameContact = nameContact.innerHTML
+
+        if(nameContact == status){
+            allStatus[i].classList.remove("noShow")
+        
+        }
+        else{
+            allStatus[i].classList.add("noShow")
+        }
+    }
+
+
+}
+
+setInterval(() => {
+    window.scrollTo({
+      top: document.body.scrollHeight, 
+      behavior: 'smooth' 
+    });
+  }, 3000);
+
+setInterval(showParticipants,10000)
 
 
 joinChat()

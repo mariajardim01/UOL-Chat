@@ -34,7 +34,7 @@
     <div class="bottom">
         <div>
         <input class="commentText" type="text" placeholder="Escreva aqui..." >
-        <div class="commentStatus">Enviando para {{to}} (público)</div>
+        <div class="commentStatus">Enviando para Todos (público)</div>
         </div>
         <ion-icon class=send name="paper-plane-outline" onclick="sendComment()"></ion-icon>
         
@@ -64,19 +64,19 @@
             <div class="text">Escolha a visibilidade:</div>
             <div class="listVisibility">
                 
-                <div class="contact">
+                <div class="contact" onclick="chooseStatus(this)">
                     <div style="display: flex;">
                         <ion-icon name="lock-open"></ion-icon>
                         <div class="nameContact">Público</div>
                     </div>
-                    <ion-icon name="checkmark-outline" style="color: #28BB25;"></ion-icon>
+                    <ion-icon class="statusCheck" name="checkmark-outline" style="color: #28BB25;"></ion-icon>
                 </div>
-                <div class="contact">
+                <div class="contact" onclick="chooseStatus(this)" >
                     <div style="display: flex;">
                         <ion-icon name="lock-closed"></ion-icon>
                         <div class="nameContact">Privado</div>
                     </div>
-                    <ion-icon name="checkmark-outline" style="color: #28BB25;"></ion-icon>
+                    <ion-icon class="statusCheck noShow" name="checkmark-outline" style="color: #28BB25;"></ion-icon>
                 </div>
             </div>
 
